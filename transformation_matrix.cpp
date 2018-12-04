@@ -7,13 +7,16 @@ TransformationMatrix::TransformationMatrix()
 }
 
 TransformationMatrix::TransformationMatrix(Matrix3x3 fromMatrix) 
-    : m_trMatrix(fromMatrix), m_dx(0), m_dy(0) {
+    : m_trMatrix(fromMatrix), 
+    m_dx(0), m_dy(0), 
+    m_type(NoTransformation), m_dirty(NoTransformation) {
 }
 
 TransformationMatrix::TransformationMatrix(int m11, int m12, int m13,
                                            int m21, int m22, int m23,
                                            int m31, int m32, int m33)
-    : m_dx(0), m_dy(0) {
+   : m_dx(0), m_dy(0),
+    m_type(NoTransformation), m_dirty(Project) {
 
     setupTransformationMatrix(m11, m12, m13,
                               m21, m22, m23,
@@ -66,11 +69,22 @@ int TransformationMatrix::dy() const {
     return m_dy;
 }
 
-void TransformationMatrix::setupTransformationMatrix() {
-    m_trMatrix.resize(m_trMatrixWidth);
-    for(std::size_t i = 0; i < m_trMatrix.size(); i++)
+
+TransformationMatrix::TransformationType TransformationMatrix::trType()
+{
+    if(m_dirty > m_type)
     {
-        m_trMatrix.resize(m_trMatrixHeight);
+        return static_cast<TransformationType>(m_dirty);
+    }
+
+
+}
+
+void TransformationMatrix::setupTransformationMatrix() {
+    m_trMatrix.resize(m_trMatrixHeight);
+    for(std::size_t i = 0; i < m_trMatrixHeight; i++)
+    {
+        m_trMatrix[i].resize(m_trMatrixHeight);
     }
 }
 

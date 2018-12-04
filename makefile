@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wall -pedantic -std=c++98 -g3
+CFLAGS=-Wall -pedantic -std=c++98 -g
 
 all: runme
 
