@@ -77,7 +77,9 @@ TransformationMatrix::TransformationType TransformationMatrix::trType()
         return static_cast<TransformationType>(m_dirty);
     }
 
+    // TODO: Implement functions which returns type of the transformation
 
+    return m_type;
 }
 
 void TransformationMatrix::setupTransformationMatrix() {
